@@ -32,25 +32,18 @@ class LinkList extends Component {
 
 // 1
 const ALL_LINKS_QUERY = gql`
-  # 2
 {
-  nodes(perPage: 20, page: 2) {
+  nodes(query: "{\\"query\\":{\\"query_string\\":{\\"query\\":\\"article\\"}}}") {
     elements {
       uuid
-      path
+      fields {
+        ... on Article {
+          slug
+          title
+        }
+      }
     }
-    # Total amount of found elements
     totalCount
-    # Total amount of found pages. Each page has a size of 2
-    pageCount
-    # Size of the current page. The last page may only contain a few elements
-    size
-    # Current per page size
-    perPage
-    # Flag which indicates whether another page exists
-    hasNextPage
-    # Flag which indicates whether a previous page exists
-    hasPreviousPage
   }
 }
 `
