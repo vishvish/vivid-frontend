@@ -20,7 +20,7 @@ class Content extends Component {
     return (
       <div>
       <ArticleMenu updateArticle={this.updateArticle} />
-      <Page uuid={this.state.articleUuid} />
+      <Page page='home' uuid={this.state.articleUuid} />
       </div>
     )
   }

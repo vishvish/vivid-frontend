@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Article from './Article'
+import Home from './Home'
 
 class Page extends Component {
   constructor(props) {
@@ -8,13 +9,20 @@ class Page extends Component {
   }
 
   render() {
-    return (
-      <div className="page">
-      <h6>Page</h6>
-      <Article uuid={this.props.uuid} />
-      </div>
-    )
-
+    if(this.props.page === 'home') {
+      return(
+        <div className="page">
+        <Home uuid={this.props.uuid} />
+        </div>
+      )
+    } else {
+      return(
+        <div className="page">
+        <h6>Page</h6>
+        <Article uuid={this.props.uuid} />
+        </div>
+      )
+    }
   }
 }
 

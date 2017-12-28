@@ -26,8 +26,33 @@ const queries = {
         uuid
         fields {
           ... on Article {
-            slug
             title
+            slug
+          }
+        }
+      }
+      totalCount
+    }
+  }
+`,
+  getHome: gql`
+  {
+    nodes(query: "{\\"query\\":{\\"query_string\\":{\\"query\\":\\"article\\"}}}") {
+      elements {
+        uuid
+        fields {
+          ... on Article {
+            title
+            slug
+            synopsis
+            images {
+              uuid
+              fields {
+                ... on binary_content {
+                  featured
+                }
+              }
+            }
           }
         }
       }
@@ -35,6 +60,7 @@ const queries = {
     }
   }
 `
+
 };
 
 export default queries;
