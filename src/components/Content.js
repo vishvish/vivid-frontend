@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Menu from './Menu'
+import ArticleMenu from './ArticleMenu'
 import Page from './Page'
 
 class Content extends Component {
@@ -19,7 +19,7 @@ class Content extends Component {
   render() {
     return (
       <div>
-      <Menu updateArticle={this.updateArticle} />
+      <ArticleMenu updateArticle={this.updateArticle} />
       <Page uuid={this.state.articleUuid} />
       </div>
     )

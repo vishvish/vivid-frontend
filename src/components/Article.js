@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import queries from './queries'
-import { compose, graphql } from 'react-apollo';
+import { compose, graphql } from 'react-apollo'
+import Chapter from './Chapter'
+import ArticleImage from './ArticleImage'
+import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
 
 class Article extends Component {
 
@@ -18,7 +21,14 @@ class Article extends Component {
   render() {
     if (this.props.articleQuery.loading) {
       console.log("Loading Article " + this.props.uuid)
-      return (<div>Loading</div>)
+      return (
+        <Segment>
+        <Dimmer active>
+        <Loader />
+        </Dimmer>
+        <Image src='/assets/images/wireframe/short-paragraph.png' />
+        </Segment>
+      )
     }
 
     if (this.props.articleQuery.error) {
@@ -42,12 +52,14 @@ class Article extends Component {
         <h3>{this.props.articleQuery.node.fields.title}</h3>
         <div className="chapters">
         {chapters.map(function(chapter, index){
-          return <p key={index}>{chapter}</p>
+          return <Chapter key={index} chapter={chapter} />
         })}
         </div>
         <div className="images">
         {images.map(function(img, index){
-          return <img key={img.uuid} alt={img.uuid} src={"http://localhost:8080/api/v1/demo/nodes/" + img.uuid + "/binary/binary?width=220"} />
+        return (
+            <ArticleImage key={index} img={img} src={"http://localhost:8080/api/v1/demo/nodes/" + img.uuid + "/binary/binary"} />
+        )
         })}
         </div>
       </div>

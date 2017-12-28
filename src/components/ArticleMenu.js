@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import Link from './Link'
 import queries from './queries'
 import { compose, graphql } from 'react-apollo';
+import { Menu } from 'semantic-ui-react'
 
-class Menu extends Component {
+class ArticleMenu extends Component {
   render() {
     if (this.props.menuQuery.loading) {
       console.log("Loading Menu")
@@ -18,14 +19,11 @@ class Menu extends Component {
     const linksToRender = this.props.menuQuery.nodes.elements
 
     return (
-      <div className="menu">
-      <h6>Menu</h6>
-      <ul>
+      <Menu vertical>
       {linksToRender.map(link => (
         <Link key={link.uuid} link={link} contentType="article" updateArticle={this.props.updateArticle}/>
         ))}
-      </ul>
-      </div>
+      </Menu>
     )
   }
 }
@@ -34,5 +32,4 @@ export default compose(
   graphql(queries.getMenu, {
     name: "menuQuery"
   })
-)(Menu)
-
+)(ArticleMenu)

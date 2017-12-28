@@ -1,19 +1,15 @@
 import React, { Component } from 'react'
+import { Menu } from 'semantic-ui-react'
 
 class Link extends Component {
 
   render() {
     return (
-      <div className={this.props.contentType}>
-        <button id={this.props.link.uuid} onClick={this.props.updateArticle}>{this.props.link.fields.title}</button>
-      </div>
+      <Menu.Item id={this.props.link.uuid} name={this.props.link.fields.title} onClick={this.props.updateArticle}>
+        {this.props.link.fields.title}
+      </Menu.Item>
     )
   }
-
-  _voteForLink = async () => {
-    // ... you'll implement this in chapter 6
-  }
-
 }
 
 export default Link
