@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import queries from './queries'
+import { compose, graphql } from 'react-apollo';
 
 class Article extends Component {
 
@@ -10,16 +10,14 @@ class Article extends Component {
   }
 
   componentDidMount() {
-
   }
 
   componentWillUnmount() {
-
   }
 
   render() {
     if (this.props.articleQuery.loading) {
-      console.log("Loading")
+      console.log("Loading Article " + this.props.uuid)
       return (<div>Loading</div>)
     }
 
@@ -28,16 +26,27 @@ class Article extends Component {
       return (<div>An unexpected error occurred</div>)
     }
 
+    var chapters = this.props.articleQuery.node.fields.chapters
+    if(chapters === null) {
+      chapters = []
+    }
+
+    var images = this.props.articleQuery.node.fields.images
+    if(images === null) {
+      images = []
+    }
+
     return (
       <div className="article">
-        <h3>Article: for {this.props.articleQuery.node.fields.title}</h3>
+        <h2>Article {this.props.uuid}</h2>
+        <h3>{this.props.articleQuery.node.fields.title}</h3>
         <div className="chapters">
-        {this.props.articleQuery.node.fields.chapters.map(function(chapter, index){
+        {chapters.map(function(chapter, index){
           return <p key={index}>{chapter}</p>
         })}
         </div>
         <div className="images">
-        {this.props.articleQuery.node.fields.images.map(function(img, index){
+        {images.map(function(img, index){
           return <img key={img.uuid} alt={img.uuid} src={"http://localhost:8080/api/v1/demo/nodes/" + img.uuid + "/binary/binary?width=220"} />
         })}
         </div>
@@ -46,32 +55,13 @@ class Article extends Component {
   }
 }
 
-
-const ArticleQuery = gql`
-query ArticleQuery($uuid: String!) {
-  node(uuid: $uuid) {
-    path
-    fields {
-      ... on Article {
-        title
-        slug
-        chapters
-        images {
-          uuid
-        }
+export default compose(
+  graphql(queries.getArticle, {
+    name: 'articleQuery',
+    options: (props) => ({
+      variables: {
+        uuid: props.uuid
       }
-    }
-  }
-}
-`;
-
-const ArticleWithUUID = graphql(ArticleQuery, {
-  name: 'articleQuery',
-  options: {
-    variables: {
-      uuid: "e6f7168ad7d24b09b7168ad7d25b09b3"
-    }
-  },
-})(Article);
-
-export default ArticleWithUUID;
+    }),
+  })
+)(Article);

@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
 import Link from './Link'
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import queries from './queries'
+import { compose, graphql } from 'react-apollo';
 
 class Menu extends Component {
   render() {
-    if (this.props.articleMenuQuery.loading) {
-      console.log("Loading")
+    if (this.props.menuQuery.loading) {
+      console.log("Loading Menu")
       return (<div>Loading</div>)
     }
 
-    if (this.props.articleMenuQuery.error) {
-      console.log(this.props.articleQuery.error)
+    if (this.props.menuQuery.error) {
+      console.log(this.props.data.error)
       return (<div>An unexpected error occurred</div>)
     }
 
-    const linksToRender = this.props.articleMenuQuery.nodes.elements
+    const linksToRender = this.props.menuQuery.nodes.elements
 
     return (
       <div className="menu">
@@ -30,26 +30,9 @@ class Menu extends Component {
   }
 }
 
-const ArticleMenuQuery = gql`
-{
-  nodes(query: "{\\"query\\":{\\"query_string\\":{\\"query\\":\\"article\\"}}}") {
-    elements {
-      uuid
-      fields {
-        ... on Article {
-          slug
-          title
-        }
-      }
-    }
-    totalCount
-  }
-}
-`;
-
-const MenuWithData = graphql(ArticleMenuQuery, {
-  name: 'articleMenuQuery',
-})(Menu);
-
-export default MenuWithData;
+export default compose(
+  graphql(queries.getMenu, {
+    name: "menuQuery"
+  })
+)(Menu)
 
