@@ -31,14 +31,14 @@ class Article extends Component {
     return (
       <div className="article">
         <h3>Article: for {this.props.articleQuery.node.fields.title}</h3>
-        <div class="chapters">
-        {this.props.articleQuery.node.fields.chapters.map(function(listValue){
-          return <p>{listValue}</p>
+        <div className="chapters">
+        {this.props.articleQuery.node.fields.chapters.map(function(chapter, index){
+          return <p key={index}>{chapter}</p>
         })}
         </div>
-        <div class="images">
-        {this.props.articleQuery.node.fields.images.map(function(img){
-          return <img src={"http://localhost:8080/api/v1/demo/nodes/" + img.uuid + "/binary/binary?width=220"} />
+        <div className="images">
+        {this.props.articleQuery.node.fields.images.map(function(img, index){
+          return <img key={img.uuid} alt={img.uuid} src={"http://localhost:8080/api/v1/demo/nodes/" + img.uuid + "/binary/binary?width=220"} />
         })}
         </div>
       </div>

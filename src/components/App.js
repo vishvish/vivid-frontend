@@ -1,11 +1,20 @@
+/* @flow */
 import React, { Component } from 'react'
-// import LinkList from './LinkList'
-import Article from './Article'
+import Content from './Content'
 
 class App extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      contentType: "home",
+      itemUuid: "none",
+      date: new Date()
+    };
+  }
+
+    render() {
     return (
-      <Article uuid="e6f7168ad7d24b09b7168ad7d25b09b3" />
+      <Content />
     )
   }
 }
