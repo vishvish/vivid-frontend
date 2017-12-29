@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
+import { Item } from 'semantic-ui-react'
 
 class Chapter extends Component {
 
   render() {
     return (
-      <div className="chapter">
-      <p>{this.props.chapter}</p>
-      </div>
+    <Item>
+      <Item.Content>
+        <Item.Description>
+          <p>{this.props.chapter}</p>
+        </Item.Description>
+      </Item.Content>
+    </Item>
     )
   }
 }

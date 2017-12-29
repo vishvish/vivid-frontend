@@ -10,6 +10,7 @@ const queries = {
         ... on Article {
           title
           slug
+          synopsis
           chapters
           images {
             uuid

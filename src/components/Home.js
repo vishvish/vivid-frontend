@@ -1,26 +1,14 @@
 import React, { Component } from 'react'
 import queries from './queries'
 import { compose, graphql } from 'react-apollo'
-import Chapter from './Chapter'
-import ArticleImage from './ArticleImage'
-import { Dimmer, Loader, Image, Segment, Menu, Header, Item, Card, Icon } from 'semantic-ui-react'
+import { Dimmer, Loader, Image, Segment, Card, Icon } from 'semantic-ui-react'
+import {
+  Link
+} from 'react-router-dom'
 
 class Home extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {uuid: this.props.uuid}
-  }
-
-  componentDidMount() {
-  }
-
-  componentWillUnmount() {
-  }
-
   render() {
     if (this.props.homeQuery.loading) {
-      console.log("Loading Home " + this.props.uuid)
       return (
         <Segment>
         <Dimmer active>
@@ -39,13 +27,14 @@ class Home extends Component {
     const articles = this.props.homeQuery.nodes.elements
 
     return (
-      <Card.Group itemsperRow={6}>
-      {articles.map(article => (
-        <Card>
+      <Card.Group itemsPerRow={4}>
+      {articles.map(function(article, index){
+        return (
+        <Card key={index}>
           <Image src={"http://localhost:8080/api/v1/demo/nodes/" + article.fields.images[Math.floor(Math.random()*article.fields.images.length)].uuid + "/binary/binary"} />
           <Card.Content>
             <Card.Header>
-              {article.fields.title}
+              <Link to={"/stories/" + article.uuid}>{article.fields.title}</Link>
             </Card.Header>
             <Card.Meta>
               <Icon name='like' />
@@ -61,7 +50,8 @@ class Home extends Component {
             </a>
           </Card.Content>
         </Card>
-      ))}
+        )
+      })}
       </Card.Group>
     )
   }
@@ -72,13 +62,3 @@ export default compose(
     name: 'homeQuery'
   }),
 )(Home)
-
-
-// {articles.map(article => (
-//   <h3>{article.title}</h3>
-//   {article.images.map(function(img, index){
-//     return (
-//       <ArticleImage key={index} img={img} src={"http://localhost:8080/api/v1/demo/nodes/" + img.uuid + "/binary/binary"} />
-//     )
-//   })}
-// ))}

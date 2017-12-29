@@ -3,7 +3,7 @@ import queries from './queries'
 import { compose, graphql } from 'react-apollo'
 import Chapter from './Chapter'
 import ArticleImage from './ArticleImage'
-import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
+import { Dimmer, Loader, Image, Segment, Header, Item } from 'semantic-ui-react'
 
 class Article extends Component {
 
@@ -12,15 +12,9 @@ class Article extends Component {
     this.state = {uuid: this.props.uuid}
   }
 
-  componentDidMount() {
-  }
-
-  componentWillUnmount() {
-  }
-
   render() {
     if (this.props.articleQuery.loading) {
-      console.log("Loading Article " + this.props.uuid)
+      // console.log("Loading Article " + this.props.uuid)
       return (
         <Segment>
         <Dimmer active>
@@ -47,22 +41,28 @@ class Article extends Component {
     }
 
     return (
-      <div className="article">
-        <h2>Article {this.props.uuid}</h2>
-        <h3>{this.props.articleQuery.node.fields.title}</h3>
-        <div className="chapters">
-        {chapters.map(function(chapter, index){
-          return <Chapter key={index} chapter={chapter} />
-        })}
-        </div>
-        <div className="images">
-        {images.map(function(img, index){
-        return (
-            <ArticleImage key={index} img={img} src={"http://localhost:8080/api/v1/demo/nodes/" + img.uuid + "/binary/binary"} />
-        )
-        })}
-        </div>
-      </div>
+
+<div>
+  <Header as='h2'>
+      {this.props.articleQuery.node.fields.title}
+    <Header.Subheader>
+      {this.props.articleQuery.node.fields.synopsis}
+    </Header.Subheader>
+  </Header>
+
+  <Item.Group>
+    {chapters.map(function(chapter, index){
+      return <Chapter key={index} chapter={chapter} />
+    })}
+
+    {images.map(function(img, index){
+    return (
+      <ArticleImage key={index} img={img} src={"http://localhost:8080/api/v1/demo/nodes/" + img.uuid + "/binary/binary"} />
+    )
+    })}
+
+  </Item.Group>
+</div>
     );
   }
 }
