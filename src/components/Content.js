@@ -36,7 +36,7 @@ class Content extends Component {
           </Menu.Item>
         </Menu>
         <Route exact path="/" render={()=><Home page='home' />}/>
-        <Route path="/stories/:uuid" render={(routeProps) => (
+        <Route path="/articles/:path" render={(routeProps) => (
           <Page page='page' {...routeProps} />
         )}/>
       </div>

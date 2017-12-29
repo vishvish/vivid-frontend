@@ -3,9 +3,15 @@ import gql from 'graphql-tag'
 const queries = {
 
   getArticle: gql`
-  query ArticleQuery($uuid: String!) {
-    node(uuid: $uuid) {
+  query ArticleQuery($path: String!) {
+    node(path: $path) {
+      uuid
       path
+      tags {
+        elements {
+          name
+        }
+      }
       fields {
         ... on Article {
           title
@@ -25,6 +31,12 @@ const queries = {
     nodes(query: "{\\"query\\":{\\"query_string\\":{\\"query\\":\\"article\\"}}}") {
       elements {
         uuid
+        path
+        tags {
+          elements {
+            name
+          }
+        }
         fields {
           ... on Article {
             title
@@ -41,6 +53,12 @@ const queries = {
     nodes(query: "{\\"query\\":{\\"query_string\\":{\\"query\\":\\"article\\"}}}") {
       elements {
         uuid
+        path
+        tags {
+          elements {
+            name
+          }
+        }
         fields {
           ... on Article {
             title

@@ -9,7 +9,7 @@ class Article extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {uuid: this.props.uuid}
+    this.state = {path: this.props.path}
   }
 
   render() {
@@ -70,7 +70,7 @@ export default compose(
     name: 'articleQuery',
     options: (props) => ({
       variables: {
-        uuid: props.uuid
+        path: "articles/" + props.path
       }
     }),
   })

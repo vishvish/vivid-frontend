@@ -4,12 +4,12 @@ import Article from './Article'
 class Page extends Component {
   constructor(props) {
     super(props)
-    this.state = {uuid: this.props.uuid}
+    this.state = {path: this.props.path}
   }
 
   render() {
     return(
-      <Article uuid={this.props.match.params.uuid} />
+      <Article path={this.props.match.params.path} />
     )
   }
 }

@@ -36,7 +36,7 @@ class Home extends Component {
           <Image src={"http://localhost:8080/api/v1/demo/nodes/" + article.fields.images[Math.floor(Math.random()*article.fields.images.length)].uuid + "/binary/binary"} />
           <Card.Content>
             <Card.Header>
-              <Link to={"/stories/" + article.uuid}>{article.fields.title}</Link>
+              <Link to={article.path}>{article.fields.title}</Link>
             </Card.Header>
             <Card.Meta>
               <Icon name='like' />
