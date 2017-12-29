@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Image, Item } from 'semantic-ui-react'
+import { Image } from 'semantic-ui-react'
 
 class ArticleImage extends Component {
 
@@ -13,13 +13,7 @@ class ArticleImage extends Component {
 
   render() {
     return (
-    <Item>
-      <Item.Content>
-        <Item.Description>
-          <Image id={this.props.img.uuid} src={this.smallImageURI()} rounded onClick={this.enlargeImage} />
-        </Item.Description>
-      </Item.Content>
-    </Item>
+          <Image id={this.props.img.uuid} src={this.smallImageURI()} rounded onClick={this.enlargeImage} floated='left' />
     )
   }
 }

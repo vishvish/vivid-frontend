@@ -41,29 +41,27 @@ class Article extends Component {
     }
 
     return (
-
-<div>
-  <Header as='h2'>
-      {this.props.articleQuery.node.fields.title}
-    <Header.Subheader>
-      {this.props.articleQuery.node.fields.synopsis}
-    </Header.Subheader>
-  </Header>
-
-  <Item.Group>
-    {chapters.map(function(chapter, index){
-      return <Chapter key={index} chapter={chapter} />
-    })}
-
-    {images.map(function(img, index){
-    return (
-      <ArticleImage key={index} img={img} src={"http://localhost:8080/api/v1/demo/nodes/" + img.uuid + "/binary/binary"} />
+      <div>
+        <Header as='h2'>
+            {this.props.articleQuery.node.fields.title}
+          <Header.Subheader>
+            {this.props.articleQuery.node.fields.synopsis}
+          </Header.Subheader>
+        </Header>
+        <Item.Group>
+          {chapters.map(function(chapter, index){
+            return <Chapter key={index} chapter={chapter} />
+          })}
+          <Image.Group>
+          {images.map(function(img, index){
+            return (
+              <ArticleImage key={index} img={img} src={"http://localhost:8080/api/v1/demo/nodes/" + img.uuid + "/binary/binary"} />
+            )
+          })}
+          </Image.Group>
+        </Item.Group>
+      </div>
     )
-    })}
-
-  </Item.Group>
-</div>
-    );
   }
 }
 
@@ -76,4 +74,4 @@ export default compose(
       }
     }),
   })
-)(Article);
+)(Article)

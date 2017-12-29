@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import queries from './queries'
 import { compose, graphql } from 'react-apollo'
-import { Dimmer, Loader, Image, Segment, Card, Icon } from 'semantic-ui-react'
+import { Dimmer, Loader, Image, Segment, Card, Icon, Header } from 'semantic-ui-react'
 import {
   Link
 } from 'react-router-dom'
@@ -27,6 +27,8 @@ class Home extends Component {
     const articles = this.props.homeQuery.nodes.elements
 
     return (
+      <div>
+      <Header as='h2'>Picture Stories</Header>
       <Card.Group itemsPerRow={4}>
       {articles.map(function(article, index){
         return (
@@ -52,7 +54,7 @@ class Home extends Component {
         </Card>
         )
       })}
-      </Card.Group>
+      </Card.Group></div>
     )
   }
 }
