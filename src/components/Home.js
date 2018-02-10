@@ -24,7 +24,7 @@ class Home extends Component {
       return (<div>An unexpected error occurred</div>)
     }
 
-    const articles = this.props.homeQuery.nodes.elements
+    const articles = this.props.homeQuery.schema.nodes.elements
 
     return (
       <div>

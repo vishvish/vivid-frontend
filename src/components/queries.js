@@ -13,7 +13,7 @@ const queries = {
         }
       }
       fields {
-        ... on Article {
+        ... on article {
           title
           slug
           synopsis
@@ -38,7 +38,7 @@ const queries = {
           }
         }
         fields {
-          ... on Article {
+          ... on article {
             title
             slug
           }
@@ -49,8 +49,8 @@ const queries = {
   }
 `,
   getHome: gql`
-  {
-    nodes(query: "{\\"query\\":{\\"query_string\\":{\\"query\\":\\"article\\"}}}") {
+  { schema(name: "article") {
+    nodes {
       elements {
         uuid
         path
@@ -60,7 +60,7 @@ const queries = {
           }
         }
         fields {
-          ... on Article {
+          ... on article {
             title
             slug
             synopsis
@@ -77,9 +77,9 @@ const queries = {
       }
       totalCount
     }
-  }
+  }}
 `
 
-};
+}
 
-export default queries;
+export default queries
